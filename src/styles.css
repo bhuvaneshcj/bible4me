@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* BalooThambi2 Font Family */
+@font-face {
+    font-family: "BalooThambi2";
+    src: url("./assets/fonts/BalooThambi2-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "BalooThambi2";
+    src: url("./assets/fonts/BalooThambi2-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "BalooThambi2";
+    src: url("./assets/fonts/BalooThambi2-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "BalooThambi2";
+    src: url("./assets/fonts/BalooThambi2-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "BalooThambi2";
+    src: url("./assets/fonts/BalooThambi2-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Set BalooThambi2 as the default font family */
+body {
+    font-family: "BalooThambi2", sans-serif;
+}
