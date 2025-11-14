@@ -48,5 +48,5 @@
 
 /* Set BalooThambi2 as the default font family */
 body {
-    font-family: "BalooThambi2", sans-serif;
+    font-family: "BalooThambi2", sans-serif !important;
 }

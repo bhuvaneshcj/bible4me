@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { BibleIndex, Bible } from "../interfaces/bible.interface";
+import { BibleIndex, Bible, BibleBook, BibleChapter, BibleVerse } from "../interfaces/bible.interface";
 
 @Injectable({
     providedIn: "root",
@@ -11,6 +11,10 @@ export class BibleService {
 
     bibleIndex: BibleIndex[] = [];
     bible: Bible[] = [];
+
+    currentBook!: BibleBook;
+    currentChapter!: BibleChapter;
+    currentVerses: BibleVerse[] = [];
 
     constructor(private http: HttpClient) {}
 
@@ -30,6 +34,9 @@ export class BibleService {
                     next: (data) => {
                         this.isLoading = false;
                         this.bible = data;
+                        this.currentBook = this.bible[0].book;
+                        this.currentChapter = this.bible[0].chapter;
+                        this.getVerses(this.currentBook, this.currentChapter);
                     },
                     error: (error) => {
                         this.isLoading = false;
@@ -38,5 +45,9 @@ export class BibleService {
                 });
             },
         });
+    }
+
+    getVerses(book: BibleBook, chapter: BibleChapter) {
+        this.currentVerses = this.bible.filter((verse) => verse.book.slug === book.slug && verse.chapter.slug === chapter.slug).map((verse) => verse.verse);
     }
 }
