@@ -1,0 +1,8 @@
+<div class="reading-container" [style.font-size.px]="fontSize">
+    <div class="verses-wrapper">
+        <div *ngFor="let verse of verses" class="verse-item">
+            <span class="verse-number">{{ verse.id }}</span>
+            <span class="verse-text">{{ verse.text }}</span>
+        </div>
+    </div>
+</div>

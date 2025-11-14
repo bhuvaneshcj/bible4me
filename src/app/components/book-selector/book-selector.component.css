@@ -1,0 +1,205 @@
+.book-selector-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.select-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    @apply text-gray-700 dark:text-gray-300;
+}
+
+/* Custom Book Select */
+.custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-button {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    @apply border-2 border-gray-200 dark:border-gray-700 rounded-lg text-base font-sans bg-white dark:bg-black text-gray-800 dark:text-gray-100;
+    font-family: "BalooThambi2", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.custom-select-button:hover {
+    @apply border-gray-400 dark:border-gray-600;
+}
+
+.custom-select-button:focus {
+    outline: none;
+    @apply border-blue-500 dark:border-blue-400;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.custom-select-button.open {
+    @apply border-blue-500 dark:border-blue-400;
+}
+
+.custom-select-arrow {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.custom-select-arrow.rotated {
+    transform: rotate(180deg);
+}
+
+.custom-select-dropdown {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 0;
+    right: 0;
+    max-height: 10rem;
+    overflow-y: auto;
+    @apply bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50;
+    display: none;
+}
+
+.custom-select-dropdown.open {
+    display: block;
+}
+
+.custom-select-option {
+    padding: 0.5rem 0.75rem;
+    @apply text-gray-800 dark:text-gray-100 cursor-pointer transition-colors;
+    font-family: "BalooThambi2", sans-serif;
+    font-size: 0.875rem;
+}
+
+.custom-select-option:hover {
+    @apply bg-gray-100 dark:bg-gray-700;
+}
+
+.custom-select-option.selected {
+    @apply bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-semibold;
+}
+
+/* Custom scrollbar for dropdown */
+.custom-select-dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-black;
+    border-radius: 4px;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600;
+    border-radius: 4px;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Firefox scrollbar */
+.custom-select-dropdown {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(209, 213, 219) rgb(243, 244, 246);
+}
+
+@media (prefers-color-scheme: dark) {
+    .custom-select-dropdown {
+        scrollbar-color: rgb(75, 85, 99) rgb(31, 41, 55);
+    }
+}
+
+/* Chapter Swiper */
+.chapter-swiper {
+    width: 100%;
+    padding: 0.375rem 0;
+    overflow: hidden;
+}
+
+.chapter-swiper .swiper-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.chapter-swiper .swiper-slide {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.chapter-button {
+    width: 100%;
+    min-width: 2.5rem;
+    padding: 0.375rem 0.75rem;
+    @apply border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-700 dark:text-gray-200;
+    font-family: "BalooThambi2", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.chapter-button:hover:not(:disabled) {
+    @apply border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-gray-700;
+}
+
+.chapter-button.active {
+    @apply border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-semibold;
+}
+
+.chapter-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+    .book-selector-container {
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .select-group:first-child {
+        width: 25%;
+        flex-shrink: 0;
+    }
+
+    .select-group:last-child {
+        width: 75%;
+        flex-shrink: 0;
+    }
+
+    .chapter-swiper {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .book-selector-container {
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center !important;
+    }
+
+    .select-group:first-child {
+        width: 25%;
+    }
+
+    .select-group:last-child {
+        width: 75%;
+    }
+}

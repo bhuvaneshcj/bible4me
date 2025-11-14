@@ -1,0 +1,11 @@
+<div class="chapter-navigation-container">
+    <button type="button" class="nav-button" [class.disabled]="!canGoPrevious" [disabled]="!canGoPrevious" (click)="onPrevious()" aria-label="Previous chapter">
+        <span class="nav-icon">←</span>
+        <span class="nav-label">முந்தைய</span>
+    </button>
+
+    <button type="button" class="nav-button" [class.disabled]="!canGoNext" [disabled]="!canGoNext" (click)="onNext()" aria-label="Next chapter">
+        <span class="nav-icon">→</span>
+        <span class="nav-label">அடுத்த</span>
+    </button>
+</div>

@@ -5,6 +5,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Swiper CSS */
+@import "swiper/css";
+
 /* BalooThambi2 Font Family */
 @font-face {
     font-family: "BalooThambi2";
@@ -47,6 +50,40 @@
 }
 
 /* Set BalooThambi2 as the default font family */
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: "BalooThambi2", sans-serif !important;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global smooth transitions */
+* {
+    transition-property: color, background-color, border-color, opacity, transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+}
+
+/* Ensure proper box-sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default button styles */
+button {
+    font-family: inherit;
+}
+
+/* Ensure proper text rendering for Tamil */
+html {
+    text-rendering: optimizeLegibility;
 }

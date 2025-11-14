@@ -1,0 +1,15 @@
+<div class="font-size-control-container">
+    <button type="button" class="font-size-button" [class.disabled]="!canDecrease()" [disabled]="!canDecrease()" (click)="decreaseFontSize()" aria-label="Decrease font size">
+        <svg class="font-size-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+        </svg>
+        <span class="font-size-label">குறை</span>
+    </button>
+
+    <button type="button" class="font-size-button" [class.disabled]="!canIncrease()" [disabled]="!canIncrease()" (click)="increaseFontSize()" aria-label="Increase font size">
+        <svg class="font-size-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        <span class="font-size-label">அதிக</span>
+    </button>
+</div>

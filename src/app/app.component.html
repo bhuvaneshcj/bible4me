@@ -1,24 +1,52 @@
+<!-- Loading State -->
 <ng-container *ngIf="bibleService.isLoading && !bibleService.errorMessage">
-    <div class="flex justify-center items-center h-screen">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-    </div>
-</ng-container>
-
-<ng-container *ngIf="bibleService.errorMessage && !bibleService.isLoading">
-    <div class="flex justify-center items-center h-screen">
-        <div class="max-w-md mx-auto space-y-4 px-5 text-center">
-            <h2 class="text-gray-700 text-lg font-medium">{{ bibleService.errorMessage }}</h2>
-            <button type="button" class="bg-primary text-tertiary px-4 py-1.5 rounded-lg text-base font-medium" routerLink="/">Try Again</button>
+    <div class="flex justify-center items-center h-screen bg-white dark:bg-black">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600 dark:border-blue-400 mx-auto"></div>
+            <p class="mt-4 text-gray-600 dark:text-gray-400">ஏற்றுகிறது...</p>
         </div>
     </div>
 </ng-container>
 
-<ng-container *ngIf="bibleService.bibleIndex.length > 0 && bibleService.bible.length > 0 && !bibleService.isLoading && !bibleService.errorMessage">
-    <div>
-        <ng-container *ngFor="let verse of bibleService.currentVerses">
-            <div>
-                {{ verse.text }}
+<!-- Error State -->
+<ng-container *ngIf="bibleService.errorMessage && !bibleService.isLoading">
+    <div class="flex justify-center items-center h-screen bg-white dark:bg-black">
+        <div class="max-w-md mx-auto space-y-4 px-5 text-center">
+            <h2 class="text-gray-700 dark:text-gray-300 text-lg font-medium">{{ bibleService.errorMessage }}</h2>
+            <button type="button" class="bg-blue-600 dark:bg-blue-500 text-white px-4 py-2 rounded-lg text-base font-medium hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors" (click)="bibleService.init()">மீண்டும் முயற்சிக்கவும்</button>
+        </div>
+    </div>
+</ng-container>
+
+<!-- Main Content -->
+<ng-container *ngIf="bibleService.getBooks().length > 0 && bibleService.bible.length > 0 && !bibleService.isLoading && !bibleService.errorMessage">
+    <div class="app-container">
+        <!-- Main Reading Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <app-book-selector [books]="books" [chapters]="chapters" [selectedBook]="currentBook" [selectedChapter]="currentChapter" (bookChange)="onBookChange($event)" (chapterChange)="onChapterChange($event)"></app-book-selector>
             </div>
-        </ng-container>
+
+            <!-- Reading Component -->
+            <div class="reading-area">
+                <app-reading [verses]="bibleService.currentVerses" [fontSize]="fontSize"></app-reading>
+            </div>
+
+            <!-- Bottom Toolbar -->
+            <div class="bottom-toolbar">
+                <app-chapter-navigation [canGoPrevious]="bibleService.canGoPrevious()" [canGoNext]="bibleService.canGoNext()" (navigate)="onNavigate($event)"></app-chapter-navigation>
+                <button type="button" class="theme-toggle-button" (click)="toggleTheme()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+                    <svg *ngIf="!isDarkMode" class="w-5 h-5 text-gray-700 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <svg *ngIf="isDarkMode" class="w-5 h-5 text-gray-700 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <span class="theme-toggle-label">தீம்</span>
+                </button>
+                <app-font-size-control [fontSize]="fontSize" (fontSizeChange)="onFontSizeChange($event)"></app-font-size-control>
+            </div>
+        </main>
     </div>
 </ng-container>
