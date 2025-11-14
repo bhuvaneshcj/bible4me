@@ -1,0 +1,18 @@
+<ng-container *ngIf="bibleService.isLoading && !bibleService.errorMessage">
+    <div class="flex justify-center items-center h-screen bg-tertiary">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="bibleService.errorMessage && !bibleService.isLoading">
+    <div class="flex justify-center items-center h-screen bg-tertiary">
+        <div class="max-w-md mx-auto space-y-4 px-5 text-center">
+            <h2 class="text-gray-700 text-lg font-medium">{{ bibleService.errorMessage }}</h2>
+            <button type="button" class="bg-primary text-tertiary px-4 py-1.5 rounded-lg text-base font-medium" routerLink="/">Try Again</button>
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="bibleService.bibleIndex.length > 0 && bibleService.bible.length > 0 && !bibleService.isLoading && !bibleService.errorMessage">
+    <div class="flex flex-col items-center justify-center h-screen bg-tertiary"></div>
+</ng-container>
