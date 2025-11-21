@@ -1,0 +1,50 @@
+<div class="sidebar" [class.open]="isOpen" [class.closed]="!isOpen">
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+        <div class="sidebar-title">
+            <h2 class="text-gradient-purple font-bold text-xl">Bible</h2>
+        </div>
+        <button type="button" class="sidebar-toggle-btn" (click)="onToggleSidebar()" aria-label="Toggle sidebar">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Book Search -->
+    <div class="sidebar-search">
+        <div class="search-input-wrapper">
+            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" class="search-input" placeholder="நூலைத் தேடுங்கள்..." [(ngModel)]="searchQuery" (input)="onSearchChange()" />
+        </div>
+    </div>
+
+    <!-- Book Selector -->
+    <div class="sidebar-section">
+        <div class="custom-select">
+            <button type="button" class="custom-select-button" (click)="toggleBookDropdown()" [class.open]="isBookDropdownOpen">
+                <span class="truncate">{{ selectedBook?.name || "நூலைத் தேர்ந்தெடுக்கவும்" }}</span>
+                <svg class="custom-select-arrow" [class.rotated]="isBookDropdownOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="custom-select-dropdown" [class.open]="isBookDropdownOpen">
+                <div *ngFor="let book of filteredBooks" class="custom-select-option" [class.selected]="book.slug === selectedBookSlug" (click)="selectBook(book)">
+                    {{ book.name }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter List -->
+    <div class="sidebar-section" *ngIf="chapters.length > 0">
+        <div class="section-title">அத்தியாயங்கள்</div>
+        <div class="chapter-grid">
+            <button *ngFor="let chapter of chapters" type="button" class="chapter-btn" [class.active]="chapter.slug === selectedChapterSlug" [disabled]="!selectedBook" (click)="selectChapter(chapter)">
+                {{ chapter.id }}
+            </button>
+        </div>
+    </div>
+</div>

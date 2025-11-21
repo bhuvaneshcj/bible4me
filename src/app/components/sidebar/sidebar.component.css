@@ -1,0 +1,215 @@
+.sidebar {
+    @apply bg-light-surface-primary dark:bg-dark-surface-elevated border-r border-light-border-primary dark:border-dark-border-primary;
+    @apply flex flex-col h-full transition-all duration-normal;
+    width: 320px;
+    min-width: 320px;
+    overflow: hidden;
+}
+
+.sidebar.closed {
+    width: 0;
+    min-width: 0;
+    border: none;
+    overflow: hidden;
+}
+
+.sidebar-header {
+    @apply flex items-center justify-between p-4 border-b border-light-border-primary dark:border-dark-border-primary;
+    flex-shrink: 0;
+}
+
+.sidebar-title h2 {
+    margin: 0;
+}
+
+.sidebar-toggle-btn {
+    @apply p-1.5 rounded-lg text-light-text-secondary dark:text-dark-text-secondary;
+    @apply hover:bg-light-bg-tertiary dark:hover:bg-dark-bg-tertiary;
+    @apply hover:text-light-text-primary dark:hover:text-dark-text-primary;
+    @apply transition-colors duration-fast;
+}
+
+.sidebar-search {
+    @apply p-4 border-b border-light-border-primary dark:border-dark-border-primary;
+    flex-shrink: 0;
+}
+
+.search-input-wrapper {
+    @apply relative;
+}
+
+.search-icon {
+    @apply absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-light-text-tertiary dark:text-dark-text-tertiary;
+    pointer-events: none;
+}
+
+.search-input {
+    @apply w-full pl-10 pr-4 py-2.5 rounded-lg;
+    @apply bg-light-bg-secondary dark:bg-dark-bg-tertiary;
+    @apply border border-light-border-primary dark:border-dark-border-primary;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+    @apply placeholder-light-text-tertiary dark:placeholder-dark-text-tertiary;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+    @apply transition-all duration-fast;
+    font-family: "BalooThambi2", sans-serif;
+}
+
+.sidebar-section {
+    @apply p-4;
+    min-height: 0;
+}
+
+.sidebar-section:first-of-type {
+    flex-shrink: 0;
+    overflow: visible;
+}
+
+.sidebar-section:last-of-type {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.section-title {
+    @apply text-sm font-semibold text-light-text-secondary dark:text-dark-text-secondary mb-3;
+}
+
+.custom-select {
+    @apply relative w-full;
+    z-index: 10000;
+}
+
+.custom-select-button {
+    @apply w-full px-4 py-2.5 rounded-lg;
+    @apply bg-light-bg-secondary dark:bg-dark-bg-tertiary;
+    @apply border border-light-border-primary dark:border-dark-border-primary;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+    @apply flex items-center justify-between gap-2;
+    @apply transition-all duration-fast;
+    font-family: "BalooThambi2", sans-serif;
+    cursor: pointer;
+}
+
+.custom-select-button:hover {
+    @apply border-light-border-accent dark:border-dark-border-accent;
+}
+
+.custom-select-button:focus,
+.custom-select-button.open {
+    @apply border-primary-500 dark:border-primary-500 outline-none ring-2 ring-primary-500/20;
+}
+
+.custom-select-arrow {
+    @apply w-4 h-4 flex-shrink-0 transition-transform duration-fast;
+}
+
+.custom-select-arrow.rotated {
+    transform: rotate(180deg);
+}
+
+.custom-select-dropdown {
+    @apply absolute top-full left-0 right-0 mt-2;
+    @apply bg-light-surface-primary dark:bg-dark-surface-elevated;
+    @apply border border-light-border-primary dark:border-dark-border-primary;
+    @apply rounded-lg shadow-soft-lg dark:shadow-dark-lg;
+    @apply max-h-64 overflow-y-auto;
+    display: none;
+    position: absolute;
+    z-index: 10001;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+        opacity duration-fast,
+        transform duration-fast,
+        visibility duration-fast;
+}
+
+.custom-select-dropdown.open {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.custom-select-option {
+    @apply px-4 py-2.5 text-sm cursor-pointer;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+    @apply transition-colors duration-fast;
+    font-family: "BalooThambi2", sans-serif;
+}
+
+.custom-select-option:hover {
+    @apply bg-light-bg-tertiary dark:bg-dark-bg-tertiary;
+}
+
+.custom-select-option.selected {
+    @apply bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 font-semibold;
+}
+
+.chapter-grid {
+    @apply grid grid-cols-6 gap-2;
+}
+
+.chapter-btn {
+    @apply px-3 py-2 rounded-lg text-sm font-semibold;
+    @apply bg-light-bg-secondary dark:bg-dark-bg-tertiary;
+    @apply border border-light-border-primary dark:border-dark-border-primary;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+    @apply transition-all duration-fast;
+    font-family: "BalooThambi2", sans-serif;
+    cursor: pointer;
+}
+
+.chapter-btn:hover:not(:disabled) {
+    @apply border-primary-500 dark:border-primary-500 bg-primary-100 dark:bg-primary-900/30;
+}
+
+.chapter-btn.active {
+    @apply border-primary-500 dark:border-primary-500 bg-primary-600 dark:bg-primary-500 text-white;
+}
+
+.chapter-btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+/* Scrollbar */
+.sidebar-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-section::-webkit-scrollbar-track {
+    @apply bg-light-bg-secondary dark:bg-dark-bg-secondary;
+}
+
+.sidebar-section::-webkit-scrollbar-thumb {
+    @apply bg-light-border-secondary dark:bg-dark-border-secondary rounded-full;
+}
+
+.sidebar-section::-webkit-scrollbar-thumb:hover {
+    @apply bg-light-border-primary dark:bg-dark-border-primary;
+}
+
+.custom-select-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-track {
+    @apply bg-light-bg-secondary dark:bg-dark-bg-secondary;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-thumb {
+    @apply bg-light-border-secondary dark:bg-dark-border-secondary rounded-full;
+}
+
+/* Mobile: Hide sidebar by default, show as overlay */
+@media (max-width: 1023px) {
+    .sidebar {
+        @apply fixed left-0 top-0 z-50 h-full;
+        @apply transform -translate-x-full;
+        @apply shadow-soft-xl dark:shadow-dark-xl;
+    }
+
+    .sidebar.open {
+        @apply transform translate-x-0;
+    }
+}

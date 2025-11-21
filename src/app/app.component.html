@@ -21,23 +21,49 @@
 <!-- Main Content -->
 <ng-container *ngIf="bibleService.getBooks().length > 0 && bibleService.bible.length > 0 && !bibleService.isLoading && !bibleService.errorMessage">
     <div class="app-container">
-        <!-- Main Reading Area -->
-        <main class="main-content">
-            <!-- Header -->
-            <div class="header">
-                <app-book-selector [books]="books" [chapters]="chapters" [selectedBook]="currentBook" [selectedChapter]="currentChapter" (bookChange)="onBookChange($event)" (chapterChange)="onChapterChange($event)"></app-book-selector>
-            </div>
+        <!-- Sidebar -->
+        <app-sidebar [books]="books" [chapters]="chapters" [selectedBook]="currentBook" [selectedChapter]="currentChapter" [isOpen]="isSidebarOpen" (bookChange)="onSidebarBookChange($event)" (chapterChange)="onSidebarChapterChange($event)" (toggleSidebar)="onToggleSidebar()"></app-sidebar>
 
-            <!-- Reading Component -->
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="onToggleSidebar()"></div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button type="button" class="menu-btn" *ngIf="!isSidebarOpen" (click)="onToggleSidebar()" aria-label="Open sidebar">
+                        <!-- Hamburger icon when sidebar is closed -->
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <div class="current-selection">
+                        <h1 class="book-title">{{ currentBook?.name || "Bible" }}</h1>
+                        <span class="chapter-info" *ngIf="currentChapter">அத்தியாயம் {{ currentChapter.id }}</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <app-theme-toggle></app-theme-toggle>
+                    <!-- Font size control - Desktop only -->
+                    <div class="desktop-font-control">
+                        <app-font-size-control [fontSize]="fontSize" (fontSizeChange)="onFontSizeChange($event)"></app-font-size-control>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Reading Area -->
             <div class="reading-area">
                 <app-reading [verses]="bibleService.currentVerses" [fontSize]="fontSize"></app-reading>
             </div>
 
-            <!-- Bottom Toolbar -->
-            <div class="bottom-toolbar">
+            <!-- Bottom Navigation (Mobile) -->
+            <div class="bottom-nav">
                 <app-chapter-navigation [canGoPrevious]="bibleService.canGoPrevious()" [canGoNext]="bibleService.canGoNext()" (navigate)="onNavigate($event)"></app-chapter-navigation>
-                <app-theme-toggle></app-theme-toggle>
-                <app-font-size-control [fontSize]="fontSize" (fontSizeChange)="onFontSizeChange($event)"></app-font-size-control>
+                <!-- Font size control - Mobile only -->
+                <div class="mobile-font-control">
+                    <app-font-size-control [fontSize]="fontSize" (fontSizeChange)="onFontSizeChange($event)"></app-font-size-control>
+                </div>
             </div>
         </main>
     </div>

@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
     currentChapter: BibleChapter | null = null;
     fontSize: number = 16;
     isDarkMode: boolean = false;
+    isSidebarOpen: boolean = true;
 
     private subscriptions: Subscription[] = [];
     private dataCheckInterval: any = null;
@@ -27,6 +28,8 @@ export class AppComponent implements OnInit, OnDestroy {
         public themeService: ThemeService
     ) {
         this.isDarkMode = this.themeService.getCurrentTheme() === "dark";
+        // Set initial sidebar state based on screen size
+        this.isSidebarOpen = window.innerWidth >= 1024;
     }
 
     ngOnInit() {
@@ -119,5 +122,17 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.bibleService.setCurrentBookAndChapter(next.book, next.chapter);
             }
         }
+    }
+
+    onToggleSidebar(): void {
+        this.isSidebarOpen = !this.isSidebarOpen;
+    }
+
+    onSidebarBookChange(book: BibleBook): void {
+        this.onBookChange(book);
+    }
+
+    onSidebarChapterChange(chapter: BibleChapter): void {
+        this.onChapterChange(chapter);
     }
 }

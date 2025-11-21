@@ -1,10 +1,18 @@
 .reading-container {
     width: 100%;
     max-width: 100%;
-    padding: 0.75rem;
+    padding: 1rem 0.75rem;
     line-height: 1.7;
     @apply text-light-text-primary dark:text-dark-text-primary;
     transition: font-size duration-fast;
+}
+
+@media (min-width: 1024px) {
+    .reading-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
 }
 
 .verses-wrapper {
@@ -37,16 +45,10 @@
 
 @media (min-width: 768px) {
     .reading-container {
-        padding: 1rem 1.5rem;
+        padding: 1.5rem 1rem;
     }
 
     .verse-item {
         margin-bottom: 0.875rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .reading-container {
-        padding: 1rem 2rem;
     }
 }
