@@ -57,12 +57,15 @@
                 <app-reading [verses]="bibleService.currentVerses" [fontSize]="fontSize"></app-reading>
             </div>
 
-            <!-- Bottom Navigation (Mobile) -->
+            <!-- Bottom Navigation -->
             <div class="bottom-nav">
-                <app-chapter-navigation [canGoPrevious]="bibleService.canGoPrevious()" [canGoNext]="bibleService.canGoNext()" (navigate)="onNavigate($event)"></app-chapter-navigation>
                 <!-- Font size control - Mobile only -->
                 <div class="mobile-font-control">
                     <app-font-size-control [fontSize]="fontSize" (fontSizeChange)="onFontSizeChange($event)"></app-font-size-control>
+                </div>
+                <!-- Chapter Navigation - Right aligned on desktop -->
+                <div class="nav-buttons-wrapper">
+                    <app-chapter-navigation [canGoPrevious]="bibleService.canGoPrevious()" [canGoNext]="bibleService.canGoNext()" (navigate)="onNavigate($event)"></app-chapter-navigation>
                 </div>
             </div>
         </main>

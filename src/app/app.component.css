@@ -91,10 +91,10 @@
     min-height: 0;
 }
 
-/* Bottom Navigation (Mobile) */
+/* Bottom Navigation */
 .bottom-nav {
-    @apply lg:hidden;
-    @apply flex items-center justify-between px-4 py-3 gap-3;
+    @apply flex items-center px-4 py-3 gap-3;
+    @apply justify-between lg:justify-end;
     @apply bg-light-surface-primary/80 dark:bg-dark-surface-elevated/80 backdrop-blur-md;
     @apply border-t border-light-border-primary dark:border-dark-border-primary;
     @apply shadow-soft-sm dark:shadow-dark-sm;
@@ -102,6 +102,10 @@
     bottom: 0;
     z-index: 30;
     flex-shrink: 0;
+}
+
+.nav-buttons-wrapper {
+    @apply flex;
 }
 
 /* Desktop: Always show menu button to toggle sidebar */

@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { BibleService } from "./core/services/bible.service";
 import { StorageService } from "./core/services/storage.service";
 import { ThemeService } from "./core/services/theme.service";
+import { SeoService } from "./core/services/seo.service";
 import { BibleBook, BibleChapter } from "./core/interfaces/bible.interface";
 
 @Component({
@@ -25,7 +26,8 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(
         public bibleService: BibleService,
         private storageService: StorageService,
-        public themeService: ThemeService
+        public themeService: ThemeService,
+        private seoService: SeoService
     ) {
         this.isDarkMode = this.themeService.getCurrentTheme() === "dark";
         // Set initial sidebar state based on screen size
@@ -36,6 +38,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.fontSize = this.storageService.getFontSize();
         this.bibleService.init();
 
+        // Set default SEO tags
+        this.seoService.setDefaultTags();
+
         // Subscribe to service observables
         this.subscriptions.push(
             this.bibleService.currentBook$.subscribe((book) => {
@@ -43,12 +48,16 @@ export class AppComponent implements OnInit, OnDestroy {
                 if (book) {
                     this.chapters = this.bibleService.getChaptersForBook(book.slug);
                 }
+                // Update SEO tags when book changes
+                this.updateSeoTags();
             })
         );
 
         this.subscriptions.push(
             this.bibleService.currentChapter$.subscribe((chapter) => {
                 this.currentChapter = chapter;
+                // Update SEO tags when chapter changes
+                this.updateSeoTags();
             })
         );
 
@@ -69,6 +78,8 @@ export class AppComponent implements OnInit, OnDestroy {
                 if (this.currentBook) {
                     this.chapters = this.bibleService.getChaptersForBook(this.currentBook.slug);
                 }
+                // Update SEO tags when data is loaded
+                this.updateSeoTags();
                 if (this.dataCheckInterval) {
                     clearInterval(this.dataCheckInterval);
                     this.dataCheckInterval = null;
@@ -134,5 +145,34 @@ export class AppComponent implements OnInit, OnDestroy {
 
     onSidebarChapterChange(chapter: BibleChapter): void {
         this.onChapterChange(chapter);
+    }
+
+    /**
+     * Update SEO tags based on current book and chapter
+     */
+    private updateSeoTags(): void {
+        this.seoService.updateTagsForBookAndChapter(this.currentBook, this.currentChapter);
+        this.updateStructuredData();
+    }
+
+    /**
+     * Update structured data (JSON-LD) for SEO
+     */
+    private updateStructuredData(): void {
+        // Remove existing structured data script if any
+        const existingScript = document.getElementById("structured-data");
+        if (existingScript) {
+            existingScript.remove();
+        }
+
+        // Generate structured data
+        const structuredData = this.seoService.generateStructuredData(this.currentBook, this.currentChapter, this.bibleService.currentVerses);
+
+        // Create and inject new script
+        const script = document.createElement("script");
+        script.id = "structured-data";
+        script.type = "application/ld+json";
+        script.text = JSON.stringify(structuredData);
+        document.head.appendChild(script);
     }
 }

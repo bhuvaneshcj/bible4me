@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Sitemap (update with your actual sitemap URL when available)
+# Sitemap: https://bible4me.com/sitemap.xml
+
