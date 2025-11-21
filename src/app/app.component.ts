@@ -43,6 +43,9 @@ export class AppComponent implements OnInit, OnDestroy {
         // Set default SEO tags
         this.seoService.setDefaultTags();
 
+        // Set initial theme color
+        this.updateThemeColor(this.themeService.getCurrentTheme());
+
         // Subscribe to service observables
         this.subscriptions.push(
             this.bibleService.currentBook$.subscribe((book) => {
@@ -69,6 +72,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.subscriptions.push(
             this.themeService.theme$.subscribe((theme) => {
                 this.isDarkMode = theme === "dark";
+                // Update theme-color meta tag based on theme
+                this.updateThemeColor(theme);
             })
         );
 
@@ -206,5 +211,30 @@ export class AppComponent implements OnInit, OnDestroy {
                 }
             }
         }, 100);
+    }
+
+    /**
+     * Update theme-color meta tag based on current theme
+     */
+    private updateThemeColor(theme: "light" | "dark"): void {
+        const themeColor = theme === "dark" ? "#000000" : "#ffffff";
+
+        // Update theme-color meta tag
+        let themeColorMeta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
+        if (!themeColorMeta) {
+            themeColorMeta = document.createElement("meta");
+            themeColorMeta.name = "theme-color";
+            document.head.appendChild(themeColorMeta);
+        }
+        themeColorMeta.content = themeColor;
+
+        // Update msapplication-TileColor meta tag
+        let tileColorMeta = document.querySelector('meta[name="msapplication-TileColor"]') as HTMLMetaElement;
+        if (!tileColorMeta) {
+            tileColorMeta = document.createElement("meta");
+            tileColorMeta.name = "msapplication-TileColor";
+            document.head.appendChild(tileColorMeta);
+        }
+        tileColorMeta.content = themeColor;
     }
 }
