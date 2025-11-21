@@ -3,14 +3,14 @@
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
-    @apply bg-white dark:bg-black;
+    @apply bg-light-bg-primary dark:bg-dark-bg-primary;
 }
 
 /* Header */
 .header {
     display: block;
     padding: 0.7rem 0.75rem;
-    @apply bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 shadow-sm;
+    @apply bg-light-surface-primary/80 dark:bg-dark-surface-elevated/80 backdrop-blur-md border-b border-light-border-primary dark:border-dark-border-primary shadow-soft-sm dark:shadow-dark-sm;
     position: sticky;
     top: 0;
     z-index: 10;
@@ -32,7 +32,7 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    @apply bg-white dark:bg-black;
+    @apply bg-light-bg-primary dark:bg-dark-bg-primary;
     margin: 0;
     padding: 0;
     min-height: 0;
@@ -45,7 +45,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.7rem 0.75rem;
-    @apply bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 shadow-sm;
+    @apply bg-light-surface-primary/80 dark:bg-dark-surface-elevated/80 backdrop-blur-md border-t border-light-border-primary dark:border-dark-border-primary shadow-soft-sm dark:shadow-dark-sm;
     position: sticky;
     bottom: 0;
     z-index: 100;
@@ -57,33 +57,12 @@
     justify-self: start;
 }
 
-.bottom-toolbar > .theme-toggle-button {
-    justify-self: stretch;
-    width: 100%;
+.bottom-toolbar > app-theme-toggle {
+    justify-self: center;
 }
 
 .bottom-toolbar > app-font-size-control {
     justify-self: end;
-}
-
-.theme-toggle-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.375rem;
-    width: 100%;
-    height: 36px;
-    min-height: 36px;
-    padding: 0.5rem 0.75rem;
-    @apply border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black transition-colors hover:bg-gray-200 dark:hover:bg-gray-800;
-}
-
-.theme-toggle-label {
-    display: inline;
-    font-size: 0.875rem;
-    font-weight: 600;
-    @apply text-gray-700 dark:text-gray-200;
-    font-family: "BalooThambi2", sans-serif;
 }
 
 /* Mobile specific fixes */
@@ -157,14 +136,14 @@
 }
 
 .reading-area::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-black;
+    @apply bg-light-bg-secondary dark:bg-dark-bg-secondary;
 }
 
 .reading-area::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-gray-600;
+    @apply bg-light-border-secondary dark:bg-dark-border-secondary;
     border-radius: 4px;
 }
 
 .reading-area::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-500;
+    @apply bg-light-border-primary dark:bg-dark-border-primary;
 }

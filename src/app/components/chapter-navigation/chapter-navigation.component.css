@@ -14,14 +14,14 @@
     min-width: 36px;
     min-height: 36px;
     padding: 0;
-    @apply border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-700 dark:text-gray-200;
+    @apply border-2 border-light-border-primary dark:border-dark-border-primary rounded-lg bg-light-surface-primary dark:bg-dark-surface-elevated text-light-text-primary dark:text-dark-text-primary;
     font-family: "BalooThambi2", sans-serif;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all duration-fast;
 }
 
 .nav-button:hover:not(:disabled) {
-    @apply border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300;
+    @apply border-primary-500 dark:border-primary-500 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400;
 }
 
 .nav-button:active:not(:disabled) {
@@ -32,7 +32,7 @@
 .nav-button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    @apply bg-gray-100 dark:bg-gray-700;
+    @apply bg-light-bg-tertiary dark:bg-dark-bg-tertiary;
 }
 
 .nav-icon {

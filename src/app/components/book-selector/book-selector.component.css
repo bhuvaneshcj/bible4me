@@ -14,7 +14,7 @@
 .select-label {
     font-size: 0.8125rem;
     font-weight: 600;
-    @apply text-gray-700 dark:text-gray-300;
+    @apply text-light-text-primary dark:text-dark-text-primary;
 }
 
 /* Custom Book Select */
@@ -26,10 +26,10 @@
 .custom-select-button {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    @apply border-2 border-gray-200 dark:border-gray-700 rounded-lg text-base font-sans bg-white dark:bg-black text-gray-800 dark:text-gray-100;
+    @apply border-2 border-light-border-primary dark:border-dark-border-primary rounded-lg text-base font-sans bg-light-surface-primary dark:bg-dark-surface-elevated text-light-text-primary dark:text-dark-text-primary;
     font-family: "BalooThambi2", sans-serif;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all duration-fast;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,17 +37,17 @@
 }
 
 .custom-select-button:hover {
-    @apply border-gray-400 dark:border-gray-600;
+    @apply border-light-border-accent dark:border-dark-border-accent;
 }
 
 .custom-select-button:focus {
     outline: none;
-    @apply border-blue-500 dark:border-blue-400;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    @apply border-primary-500 dark:border-primary-500;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
 }
 
 .custom-select-button.open {
-    @apply border-blue-500 dark:border-blue-400;
+    @apply border-primary-500 dark:border-primary-500;
 }
 
 .custom-select-arrow {
@@ -68,7 +68,7 @@
     right: 0;
     max-height: 60vh;
     overflow-y: auto;
-    @apply bg-white dark:bg-black border-2 border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50;
+    @apply bg-light-surface-primary dark:bg-dark-surface-elevated border-2 border-light-border-primary dark:border-dark-border-primary rounded-lg shadow-soft-lg dark:shadow-dark-lg z-50;
     display: none;
 }
 
@@ -78,17 +78,17 @@
 
 .custom-select-option {
     padding: 0.5rem 0.75rem;
-    @apply text-gray-800 dark:text-gray-100 cursor-pointer transition-colors;
+    @apply text-light-text-primary dark:text-dark-text-primary cursor-pointer transition-colors;
     font-family: "BalooThambi2", sans-serif;
     font-size: 0.875rem;
 }
 
 .custom-select-option:hover {
-    @apply bg-gray-100 dark:bg-gray-700;
+    @apply bg-light-bg-tertiary dark:bg-dark-bg-tertiary;
 }
 
 .custom-select-option.selected {
-    @apply bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-semibold;
+    @apply bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 font-semibold;
 }
 
 /* Custom scrollbar for dropdown */
@@ -97,29 +97,27 @@
 }
 
 .custom-select-dropdown::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-black;
+    @apply bg-light-bg-secondary dark:bg-dark-bg-secondary;
     border-radius: 4px;
 }
 
 .custom-select-dropdown::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-gray-600;
+    @apply bg-light-border-secondary dark:bg-dark-border-secondary;
     border-radius: 4px;
 }
 
 .custom-select-dropdown::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-500;
+    @apply bg-light-border-primary dark:bg-dark-border-primary;
 }
 
 /* Firefox scrollbar */
 .custom-select-dropdown {
     scrollbar-width: thin;
-    scrollbar-color: rgb(209, 213, 219) rgb(243, 244, 246);
+    scrollbar-color: #cbd5e1 #f8fafc;
 }
 
-@media (prefers-color-scheme: dark) {
-    .custom-select-dropdown {
-        scrollbar-color: rgb(75, 85, 99) rgb(31, 41, 55);
-    }
+.dark .custom-select-dropdown {
+    scrollbar-color: #0f0f0f #000000;
 }
 
 /* Chapter Swiper */
@@ -145,21 +143,21 @@
     width: 100%;
     min-width: 2.5rem;
     padding: 0.375rem 0.75rem;
-    @apply border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-700 dark:text-gray-200;
+    @apply border-2 border-light-border-primary dark:border-dark-border-primary rounded-lg bg-light-surface-primary dark:bg-dark-surface-elevated text-light-text-primary dark:text-dark-text-primary;
     font-family: "BalooThambi2", sans-serif;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all duration-fast;
     white-space: nowrap;
 }
 
 .chapter-button:hover:not(:disabled) {
-    @apply border-gray-400 dark:border-gray-600 bg-gray-50 dark:bg-gray-700;
+    @apply border-light-border-accent dark:border-dark-border-accent bg-light-bg-tertiary dark:bg-dark-bg-tertiary;
 }
 
 .chapter-button.active {
-    @apply border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-semibold;
+    @apply border-primary-500 dark:border-primary-500 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 font-semibold;
 }
 
 .chapter-button:disabled {

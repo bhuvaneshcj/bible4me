@@ -1,61 +1,107 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+
+export type Theme = "light" | "dark";
 
 @Injectable({
     providedIn: "root",
 })
 export class ThemeService {
-    private readonly THEME_KEY = "bible_theme";
+    private readonly THEME_KEY = "bible-theme";
+    private readonly MANUAL_THEME_KEY = "bible-theme-manual";
     private readonly DARK_THEME_CLASS = "dark";
+    private isManualOverride = false;
+    private themeSubject = new BehaviorSubject<Theme>(this.getInitialTheme());
+    public readonly theme$: Observable<Theme> = this.themeSubject.asObservable();
 
     constructor() {
-        this.initTheme();
-    }
+        // Check if user has manually set a theme
+        this.isManualOverride = localStorage.getItem(this.MANUAL_THEME_KEY) === "true";
 
-    private initTheme(): void {
-        const savedTheme = this.getSavedTheme();
-        if (savedTheme) {
-            this.setTheme(savedTheme);
-        } else {
-            // Use system preference
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            this.setTheme(prefersDark ? "dark" : "light");
+        // Apply theme on initialization
+        this.applyTheme(this.themeSubject.value);
+
+        // Listen for system theme changes
+        if (typeof window !== "undefined" && window.matchMedia) {
+            const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+            // Handler for system theme changes
+            const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+                // Always follow system theme unless user has manually overridden
+                if (!this.isManualOverride) {
+                    const newTheme = e.matches ? "dark" : "light";
+                    this.themeSubject.next(newTheme);
+                    this.applyTheme(newTheme);
+                }
+            };
+
+            mediaQuery.addEventListener("change", handleSystemThemeChange);
         }
     }
 
-    getCurrentTheme(): "light" | "dark" {
-        return document.documentElement.classList.contains(this.DARK_THEME_CLASS) ? "dark" : "light";
+    private getInitialTheme(): Theme {
+        // Check if user has manually set a theme
+        const isManual = localStorage.getItem(this.MANUAL_THEME_KEY) === "true";
+
+        // If user has manually set a theme, use that
+        if (isManual) {
+            const savedTheme = localStorage.getItem(this.THEME_KEY);
+            if (savedTheme === "light" || savedTheme === "dark") {
+                return savedTheme;
+            }
+        }
+
+        // Otherwise, follow system preference
+        if (typeof window !== "undefined" && window.matchMedia) {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        // Default to dark
+        return "dark";
+    }
+
+    private applyTheme(theme: Theme): void {
+        if (typeof document !== "undefined") {
+            const html = document.documentElement;
+            if (theme === "dark") {
+                html.classList.add(this.DARK_THEME_CLASS);
+            } else {
+                html.classList.remove(this.DARK_THEME_CLASS);
+            }
+        }
+    }
+
+    getCurrentTheme(): Theme {
+        return this.themeSubject.value;
+    }
+
+    setTheme(theme: Theme): void {
+        this.isManualOverride = true;
+        localStorage.setItem(this.MANUAL_THEME_KEY, "true");
+        this.themeSubject.next(theme);
+        this.applyTheme(theme);
+        localStorage.setItem(this.THEME_KEY, theme);
     }
 
     toggleTheme(): void {
-        const currentTheme = this.getCurrentTheme();
-        const newTheme = currentTheme === "light" ? "dark" : "light";
-        this.setTheme(newTheme);
+        this.isManualOverride = true;
+        localStorage.setItem(this.MANUAL_THEME_KEY, "true");
+        const newTheme = this.themeSubject.value === "dark" ? "light" : "dark";
+        this.themeSubject.next(newTheme);
+        this.applyTheme(newTheme);
+        localStorage.setItem(this.THEME_KEY, newTheme);
     }
 
-    setTheme(theme: "light" | "dark"): void {
-        if (theme === "dark") {
-            document.documentElement.classList.add(this.DARK_THEME_CLASS);
-        } else {
-            document.documentElement.classList.remove(this.DARK_THEME_CLASS);
-        }
-        this.saveTheme(theme);
-    }
+    followSystemTheme(): void {
+        this.isManualOverride = false;
+        localStorage.removeItem(this.MANUAL_THEME_KEY);
+        localStorage.removeItem(this.THEME_KEY);
 
-    private saveTheme(theme: "light" | "dark"): void {
-        try {
-            localStorage.setItem(this.THEME_KEY, theme);
-        } catch (error) {
-            console.error("Error saving theme:", error);
-        }
-    }
-
-    private getSavedTheme(): "light" | "dark" | null {
-        try {
-            const theme = localStorage.getItem(this.THEME_KEY);
-            return theme === "dark" || theme === "light" ? theme : null;
-        } catch (error) {
-            console.error("Error reading theme:", error);
-            return null;
+        // Apply system theme immediately
+        if (typeof window !== "undefined" && window.matchMedia) {
+            const newTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            this.themeSubject.next(newTheme);
+            this.applyTheme(newTheme);
         }
     }
 }

@@ -14,14 +14,14 @@
     min-width: 36px;
     min-height: 36px;
     padding: 0;
-    @apply border-2 border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-black text-gray-700 dark:text-gray-200;
+    @apply border-2 border-light-border-primary dark:border-dark-border-primary rounded-lg bg-light-surface-primary dark:bg-dark-surface-elevated text-light-text-primary dark:text-dark-text-primary;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all duration-fast;
     font-family: "BalooThambi2", sans-serif;
 }
 
 .font-size-button:hover:not(:disabled) {
-    @apply border-blue-500 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300;
+    @apply border-primary-500 dark:border-primary-500 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400;
 }
 
 .font-size-button:active:not(:disabled) {
@@ -32,7 +32,7 @@
 .font-size-button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    @apply bg-gray-100 dark:bg-gray-700;
+    @apply bg-light-bg-tertiary dark:bg-dark-bg-tertiary;
 }
 
 .font-size-icon {
@@ -44,7 +44,7 @@
 .font-size-display {
     font-size: 0.875rem;
     font-weight: 600;
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-light-text-secondary dark:text-dark-text-secondary;
     min-width: 3rem;
     text-align: center;
 }

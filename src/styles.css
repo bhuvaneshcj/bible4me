@@ -49,41 +49,207 @@
     font-display: swap;
 }
 
-/* Set BalooThambi2 as the default font family */
-html,
-body {
-    height: 100%;
-    overflow: hidden;
+/* Global theme transitions and base styles */
+@layer base {
+    * {
+        @apply transition-colors duration-normal;
+    }
+
+    html {
+        @apply antialiased;
+        scroll-behavior: smooth;
+        text-rendering: optimizeLegibility;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        @apply bg-light-bg-primary dark:bg-dark-bg-primary text-light-text-primary dark:text-dark-text-primary;
+        font-family: "BalooThambi2", sans-serif !important;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        height: 100%;
+    }
+
+    /* Custom scrollbar for light mode */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-light-bg-secondary dark:bg-dark-bg-secondary;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-light-border-secondary dark:bg-dark-border-secondary rounded-full;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-light-border-primary dark:bg-dark-border-primary;
+    }
+
+    /* Ensure proper box-sizing */
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    /* Remove default button styles */
+    button {
+        font-family: inherit;
+    }
 }
 
-body {
-    font-family: "BalooThambi2", sans-serif !important;
-    margin: 0;
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+/* Component utilities */
+@layer components {
+    /* Card Component */
+    .card {
+        @apply bg-light-surface-primary dark:bg-dark-surface-elevated rounded-xl border border-light-border-primary dark:border-dark-border-primary;
+        @apply shadow-soft-md dark:shadow-dark-md;
+        @apply transition-all duration-normal;
+    }
+
+    .card-hover {
+        @apply card hover:shadow-soft-lg dark:hover:shadow-dark-lg;
+        @apply hover:scale-[1.02] hover:-translate-y-0.5;
+    }
+
+    /* Button Variants */
+    .btn {
+        @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium;
+        @apply transition-all duration-fast;
+        @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+        @apply disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-primary {
+        @apply btn bg-primary-600 dark:bg-primary-500 text-white;
+        @apply hover:bg-primary-700 dark:hover:bg-primary-600;
+        @apply focus:ring-primary-500;
+        @apply shadow-soft-sm dark:shadow-dark-sm;
+        @apply hover:shadow-soft-md dark:hover:shadow-dark-md;
+    }
+
+    .btn-secondary {
+        @apply btn bg-light-surface-secondary dark:bg-dark-surface-secondary;
+        @apply text-light-text-primary dark:text-dark-text-primary;
+        @apply border border-light-border-primary dark:border-dark-border-primary;
+        @apply hover:bg-light-bg-tertiary dark:hover:bg-dark-bg-tertiary;
+        @apply focus:ring-primary-500;
+    }
+
+    .btn-ghost {
+        @apply btn bg-transparent text-light-text-secondary dark:text-dark-text-secondary;
+        @apply hover:bg-light-bg-tertiary dark:hover:bg-dark-bg-tertiary;
+        @apply focus:ring-primary-500;
+    }
+
+    /* Input Components */
+    .input {
+        @apply w-full px-4 py-2.5 rounded-lg;
+        @apply bg-light-surface-primary dark:bg-dark-surface-elevated;
+        @apply border border-light-border-primary dark:border-dark-border-primary;
+        @apply text-light-text-primary dark:text-dark-text-primary;
+        @apply placeholder-light-text-tertiary dark:placeholder-dark-text-tertiary;
+        @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+        @apply transition-all duration-fast;
+    }
+
+    .input-error {
+        @apply border-red-500 dark:border-red-500 focus:ring-red-500 focus:border-red-500;
+    }
+
+    /* Badge Component */
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+
+    .badge-primary {
+        @apply badge bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300;
+    }
+
+    .badge-secondary {
+        @apply badge bg-light-bg-tertiary dark:bg-dark-bg-tertiary text-light-text-secondary dark:text-dark-text-secondary;
+    }
+
+    /* Navigation */
+    .nav-link {
+        @apply px-4 py-2 rounded-lg text-sm font-medium;
+        @apply transition-colors duration-fast;
+        @apply text-light-text-secondary dark:text-dark-text-secondary;
+        @apply hover:bg-light-bg-tertiary dark:hover:bg-dark-bg-tertiary;
+        @apply hover:text-light-text-primary dark:hover:text-dark-text-primary;
+    }
+
+    .nav-link-active {
+        @apply nav-link bg-primary-100 dark:bg-primary-900/30;
+        @apply text-primary-700 dark:text-primary-400;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+        @apply fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm;
+        @apply transition-opacity duration-normal;
+    }
+
+    .modal-content {
+        @apply bg-light-surface-primary dark:bg-dark-surface-elevated rounded-2xl;
+        @apply shadow-soft-2xl dark:shadow-dark-xl;
+        @apply border border-light-border-primary dark:border-dark-border-primary;
+        @apply transform transition-all duration-normal;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+        @apply animate-spin rounded-full border-2 border-current border-t-transparent;
+    }
+
+    /* Empty State */
+    .empty-state {
+        @apply flex flex-col items-center justify-center py-12 px-4;
+        @apply text-center;
+    }
+
+    .empty-state-icon {
+        @apply w-12 h-12 text-light-text-tertiary dark:text-dark-text-tertiary mb-4;
+    }
+
+    .empty-state-text {
+        @apply text-sm text-light-text-secondary dark:text-dark-text-secondary;
+    }
 }
 
-/* Global smooth transitions */
-* {
-    transition-property: color, background-color, border-color, opacity, transform;
-    transition-duration: 0.2s;
-    transition-timing-function: ease;
-}
+/* Utility classes */
+@layer utilities {
+    /* Text gradients */
+    .text-gradient-purple {
+        @apply bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent;
+    }
 
-/* Ensure proper box-sizing */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
+    /* Glass morphism effect */
+    .glass {
+        @apply bg-white/80 dark:bg-black/80 backdrop-blur-md;
+        @apply border border-white/20 dark:border-white/10;
+    }
 
-/* Remove default button styles */
-button {
-    font-family: inherit;
-}
+    /* Smooth transitions */
+    .transition-smooth {
+        @apply transition-all duration-normal ease-smooth;
+    }
 
-/* Ensure proper text rendering for Tamil */
-html {
-    text-rendering: optimizeLegibility;
+    /* Hover lift effect */
+    .hover-lift {
+        @apply transition-transform duration-normal;
+        @apply hover:-translate-y-1 hover:scale-[1.02];
+    }
+
+    /* Focus visible ring */
+    .focus-ring {
+        @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+        @apply dark:focus:ring-offset-black;
+    }
 }

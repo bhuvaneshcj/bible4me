@@ -49,6 +49,13 @@ export class AppComponent implements OnInit, OnDestroy {
             })
         );
 
+        // Subscribe to theme changes
+        this.subscriptions.push(
+            this.themeService.theme$.subscribe((theme) => {
+                this.isDarkMode = theme === "dark";
+            })
+        );
+
         // Load books once data is ready
         this.dataCheckInterval = setInterval(() => {
             const books = this.bibleService.getBooks();
@@ -112,10 +119,5 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.bibleService.setCurrentBookAndChapter(next.book, next.chapter);
             }
         }
-    }
-
-    toggleTheme(): void {
-        this.themeService.toggleTheme();
-        this.isDarkMode = this.themeService.getCurrentTheme() === "dark";
     }
 }

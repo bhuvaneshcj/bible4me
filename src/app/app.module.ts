@@ -9,9 +9,10 @@ import { ReadingComponent } from "./components/reading/reading.component";
 import { BookSelectorComponent } from "./components/book-selector/book-selector.component";
 import { FontSizeControlComponent } from "./components/font-size-control/font-size-control.component";
 import { ChapterNavigationComponent } from "./components/chapter-navigation/chapter-navigation.component";
+import { ThemeToggleComponent } from "./components/theme-toggle/theme-toggle.component";
 
 @NgModule({
-    declarations: [AppComponent, ReadingComponent, BookSelectorComponent, FontSizeControlComponent, ChapterNavigationComponent],
+    declarations: [AppComponent, ReadingComponent, BookSelectorComponent, FontSizeControlComponent, ChapterNavigationComponent, ThemeToggleComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
     providers: [],
     bootstrap: [AppComponent],
