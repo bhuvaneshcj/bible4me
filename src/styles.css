@@ -5,9 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Swiper CSS */
-@import "swiper/css";
-
 /* BalooThambi2 Font Family */
 @font-face {
     font-family: "BalooThambi2";
