@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { Subscription } from "rxjs";
 import { BibleService } from "./core/services/bible.service";
 import { StorageService } from "./core/services/storage.service";
@@ -19,6 +19,8 @@ export class AppComponent implements OnInit, OnDestroy {
     fontSize: number = 16;
     isDarkMode: boolean = false;
     isSidebarOpen: boolean = true;
+
+    @ViewChild("readingArea", { static: false }) readingAreaRef!: ElementRef<HTMLElement>;
 
     private subscriptions: Subscription[] = [];
     private dataCheckInterval: any = null;
@@ -58,6 +60,8 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.currentChapter = chapter;
                 // Update SEO tags when chapter changes
                 this.updateSeoTags();
+                // Scroll to top when chapter changes
+                this.scrollToTop();
             })
         );
 
@@ -114,6 +118,8 @@ export class AppComponent implements OnInit, OnDestroy {
     onChapterChange(chapter: BibleChapter): void {
         if (this.currentBook) {
             this.bibleService.setCurrentBookAndChapter(this.currentBook, chapter);
+            // Scroll to top when chapter changes
+            this.scrollToTop();
         }
     }
 
@@ -126,11 +132,13 @@ export class AppComponent implements OnInit, OnDestroy {
             const prev = this.bibleService.getPreviousChapter();
             if (prev) {
                 this.bibleService.setCurrentBookAndChapter(prev.book, prev.chapter);
+                this.scrollToTop();
             }
         } else {
             const next = this.bibleService.getNextChapter();
             if (next) {
                 this.bibleService.setCurrentBookAndChapter(next.book, next.chapter);
+                this.scrollToTop();
             }
         }
     }
@@ -174,5 +182,29 @@ export class AppComponent implements OnInit, OnDestroy {
         script.type = "application/ld+json";
         script.text = JSON.stringify(structuredData);
         document.head.appendChild(script);
+    }
+
+    /**
+     * Scroll reading area to top
+     */
+    private scrollToTop(): void {
+        // Use setTimeout to ensure DOM is updated
+        setTimeout(() => {
+            if (this.readingAreaRef?.nativeElement) {
+                this.readingAreaRef.nativeElement.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            } else {
+                // Fallback: find reading area by class
+                const readingArea = document.querySelector(".reading-area") as HTMLElement;
+                if (readingArea) {
+                    readingArea.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                    });
+                }
+            }
+        }, 100);
     }
 }
